@@ -11,15 +11,16 @@ import {
 } from "@chakra-ui/react";
 import { useState, useCallback, ChangeEvent } from "react";
 
+import { calcMeanAttack } from "../calc";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { items } from "../data/items";
-import { weaponTypes, weapons } from "../data/weapons";
+import { weaponTypes, weapons, Weapon } from "../data/weapons";
 
 const Index = () => {
   const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
-  const [weapon, setWeapon] = useState<string | undefined>(undefined);
+  const [weapon, setWeapon] = useState<Weapon | undefined>(undefined);
   const onChangeWeaponType = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       setWeaponType(event.target.value);
@@ -28,7 +29,7 @@ const Index = () => {
   );
   const onChangeWeapon = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
-      setWeapon(event.target.value);
+      setWeapon(weapons.find((weapon) => weapon.name === event.target.value));
     },
     [weapon]
   );
@@ -46,7 +47,7 @@ const Index = () => {
           {weapons
             .filter((weapon) => weapon.type === weaponType)
             .map((weapon) => (
-              <option value={weapon.attack}>{weapon.name}</option>
+              <option value={weapon.name}>{weapon.name}</option>
             ))}
         </Select>
         <Stack>
@@ -96,7 +97,9 @@ const Index = () => {
           </Slider>
         </Stack>
 
-        <Text>攻撃力期待値：{weapon ? weapon : 0}</Text>
+        <Text>
+          攻撃力期待値：{weapon ? calcMeanAttack(weapon).toFixed(2) : 0}
+        </Text>
       </Main>
 
       <DarkModeSwitch />
