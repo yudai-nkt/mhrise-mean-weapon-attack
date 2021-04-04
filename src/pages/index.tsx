@@ -14,6 +14,7 @@ import { useState, useCallback, ChangeEvent } from "react";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import { items } from "../data/items";
 import { weaponTypes, weapons } from "../data/weapons";
 
 const Index = () => {
@@ -50,10 +51,9 @@ const Index = () => {
         </Select>
         <Stack>
           <Heading size={"md"}>アイテム</Heading>
-          <Checkbox>力の護符</Checkbox>
-          <Checkbox>力の爪</Checkbox>
-          <Checkbox>怪力の種</Checkbox>
-          <Checkbox>鬼人薬グレート</Checkbox>
+          {items.map(({ label }) => (
+            <Checkbox>{label}</Checkbox>
+          ))}
         </Stack>
 
         <Stack spacing={3}>
