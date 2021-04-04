@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { useState, useCallback, ChangeEvent } from "react";
 
-import { Hero } from "../components/Hero";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
@@ -35,7 +34,6 @@ const Index = () => {
 
   return (
     <Container height="100vh">
-      <Hero />
       <Main>
         <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
           {weaponTypes.map(({ type, label }) => (
