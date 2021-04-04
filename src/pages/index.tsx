@@ -1,56 +1,109 @@
 import {
-  Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
+  Checkbox,
+  Heading,
+  Select,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Stack,
 } from "@chakra-ui/react";
-import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
+import { useState, useCallback, ChangeEvent } from "react";
 
 import { Hero } from "../components/Hero";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
-import { Footer } from "../components/Footer";
+import { weaponTypes, weapons } from "../data/weapons";
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{" "}
-        <Code>typescript</Code>.
-      </Text>
+const Index = () => {
+  const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
+  const [weapon, setWeapon] = useState<string | undefined>(undefined);
+  const onChangeWeaponType = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setWeaponType(event.target.value);
+    },
+    [weaponType]
+  );
+  const onChangeWeapon = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setWeapon(event.target.value);
+    },
+    [weapon]
+  );
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+  return (
+    <Container height="100vh">
+      <Hero />
+      <Main>
+        <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
+          {weaponTypes.map(({ type, label }) => (
+            <option value={type}>{label}</option>
+          ))}
+        </Select>
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-);
+        <Select placeholder="武器を選択" onChange={onChangeWeapon}>
+          {weapons
+            .filter((weapon) => weapon.type === weaponType)
+            .map((weapon) => (
+              <option value={weapon.attack}>{weapon.name}</option>
+            ))}
+        </Select>
+        <Stack>
+          <Heading size={"md"}>アイテム</Heading>
+          <Checkbox>力の護符</Checkbox>
+          <Checkbox>力の爪</Checkbox>
+          <Checkbox>怪力の種</Checkbox>
+          <Checkbox>鬼人薬グレート</Checkbox>
+        </Stack>
+
+        <Stack spacing={3}>
+          <Heading size={"md"}>スキル</Heading>
+          <Heading as="h2" size={"sm"}>
+            攻撃
+          </Heading>
+          <Slider defaultValue={0} min={0} max={7} step={1}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          <Heading as="h2" size={"sm"}>
+            見切り
+          </Heading>
+          <Slider defaultValue={0} min={0} max={7} step={1}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          <Heading as="h2" size={"sm"}>
+            超会心
+          </Heading>
+          <Slider defaultValue={0} min={0} max={3} step={1}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          <Heading as="h2" size={"sm"}>
+            弱点特効
+          </Heading>
+          <Slider defaultValue={0} min={0} max={3} step={1}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+        </Stack>
+
+        <Text>攻撃力期待値：{weapon ? weapon : 0}</Text>
+      </Main>
+
+      <DarkModeSwitch />
+    </Container>
+  );
+};
 
 export default Index;
