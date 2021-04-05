@@ -2,6 +2,9 @@ import {
   Text,
   Checkbox,
   Heading,
+  UnorderedList,
+  ListItem,
+  Link,
   Select,
   Slider,
   SliderFilledTrack,
@@ -37,6 +40,25 @@ const Index = () => {
   return (
     <Container height="100vh">
       <Main>
+        <UnorderedList>
+          <ListItem>
+            武器・アイテム・スキルを選択すると会心攻撃を考慮した攻撃力の期待値が計算されます．
+          </ListItem>
+          <ListItem>
+            最終強化武器のみ対応しています．途中段階の武器に対応する予定はありません．
+          </ListItem>
+          <ListItem>
+            不具合や間違いなどは
+            <Link
+              color="teal.500"
+              href="https://github.com/yudai-nkt/mhrise-mean-weapon-attack/issues"
+              isExternal
+            >
+              GitHubのIssue
+            </Link>
+            までご報告ください．Pull Requestも歓迎します．
+          </ListItem>
+        </UnorderedList>
         <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
           {weaponTypes.map(({ type, label }) => (
             <option value={type}>{label}</option>
