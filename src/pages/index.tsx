@@ -46,6 +46,7 @@ const Index = () => {
         <Select placeholder="武器を選択" onChange={onChangeWeapon}>
           {weapons
             .filter((weapon) => weapon.type === weaponType)
+            .sort((a, b) => (a.syllabary > b.syllabary ? 1 : -1))
             .map((weapon) => (
               <option value={weapon.name}>{weapon.name}</option>
             ))}

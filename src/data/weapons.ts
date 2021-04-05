@@ -64,16 +64,25 @@ const foo = weaponTypes.map((weaponType) => weaponType.type);
 
 export type Weapon = {
   name: string;
+  syllabary: string;
   type: typeof foo[number];
   attack: number;
   affinity: number;
 };
 
-export const weapons = [
+export const weapons: Weapon[] = [
   {
     name: "夜行弩【梟ノ眼】",
+    syllabary: "ヤコウドフクロウノメ",
     type: "Light Bowgun",
     attack: 180,
     affinity: 40,
+  },
+  {
+    name: "蛮顎弩フラムマヌバ",
+    syllabary: "バンガクドフラムマヌバ",
+    type: "Light Bowgun",
+    attack: 230,
+    affinity: -30,
   },
 ];
