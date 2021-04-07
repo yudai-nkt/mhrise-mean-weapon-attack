@@ -74,8 +74,8 @@ const Index = () => {
           </ListItem>
         </UnorderedList>
         <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
-          {weaponTypes.map(({ type, label }) => (
-            <option value={type}>{label}</option>
+          {weaponTypes.map(({ name, label }) => (
+            <option value={name}>{label}</option>
           ))}
         </Select>
 
