@@ -18,12 +18,13 @@ import { calcMeanAttack } from "../calc";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { items } from "../data/items";
+import { items as initialItems, Item } from "../data/items";
 import { weaponTypes, weapons, Weapon } from "../data/weapons";
 
 const Index = () => {
   const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
   const [weapon, setWeapon] = useState<Weapon | undefined>(undefined);
+  const [items, setItems] = useState<Item[]>(initialItems);
   const onChangeWeaponType = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       setWeaponType(event.target.value);
@@ -35,6 +36,19 @@ const Index = () => {
       setWeapon(weapons.find((weapon) => weapon.name === event.target.value));
     },
     [weapon]
+  );
+  const onChangeItems = useCallback(
+    (event: ChangeEvent<HTMLInputElement>, index: number) => {
+      setItems(
+        items.map((item, idx) => {
+          if (idx === index) {
+            item.inUse = event.target.checked;
+          }
+          return item;
+        })
+      );
+    },
+    [items]
   );
 
   return (
@@ -75,8 +89,10 @@ const Index = () => {
         </Select>
         <Stack>
           <Heading size={"md"}>アイテム</Heading>
-          {items.map(({ label }) => (
-            <Checkbox>{label}</Checkbox>
+          {items.map((item, idx) => (
+            <Checkbox onChange={(e) => onChangeItems(e, idx)}>
+              {item.label}
+            </Checkbox>
           ))}
         </Stack>
 
@@ -121,7 +137,7 @@ const Index = () => {
         </Stack>
 
         <Text>
-          攻撃力期待値：{weapon ? calcMeanAttack(weapon).toFixed(2) : 0}
+          攻撃力期待値：{weapon ? calcMeanAttack(weapon, items).toFixed(2) : 0}
         </Text>
       </Main>
 

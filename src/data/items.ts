@@ -1,4 +1,10 @@
-export const items = [
+export type Item = {
+  label: string;
+  add: number;
+  inUse?: boolean;
+};
+
+export const items: Item[] = [
   {
     label: "力の護符",
     add: 6,
