@@ -136,7 +136,14 @@ const Index = () => {
           </Slider>
         </Stack>
 
-        <Text>
+        <Text
+          fontSize={"xx-large"}
+          position="sticky"
+          align="right"
+          bottom={0}
+          opacity={1}
+          backgroundColor="white"
+        >
           攻撃力期待値：{weapon ? calcMeanAttack(weapon, items).toFixed(2) : 0}
         </Text>
       </Main>
