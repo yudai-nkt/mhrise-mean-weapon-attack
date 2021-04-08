@@ -1,5 +1,7 @@
 {
-  "name": "with-chakra-ui-typescript",
+  "name": "mhrise-mean-weapon-attack",
+  "description": "Monster Hunter Rise mean weapon attack simulator",
+  "author": "Yudai Nakata",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
