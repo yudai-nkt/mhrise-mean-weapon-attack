@@ -20,11 +20,13 @@ import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { items as initialItems, Item } from "../data/items";
 import { weaponTypes, weapons, Weapon } from "../data/weapons";
+import { skills as initialSkills } from "../data/skills";
 
 const Index = () => {
   const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
   const [weapon, setWeapon] = useState<Weapon | undefined>(undefined);
   const [items, setItems] = useState<Item[]>(initialItems);
+  const [skills, setSkills] = useState(initialSkills);
   const onChangeWeaponType = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       setWeaponType(event.target.value);
@@ -49,6 +51,19 @@ const Index = () => {
       );
     },
     [items]
+  );
+  const onChangeSkills = useCallback(
+    (skillLevel: number, index: number) => {
+      setSkills(
+        skills.map((skill, idx) => {
+          if (idx === index) {
+            skill.level = skillLevel;
+          }
+          return skill;
+        })
+      );
+    },
+    [skills]
   );
 
   return (
@@ -98,42 +113,29 @@ const Index = () => {
 
         <Stack spacing={3}>
           <Heading size={"md"}>スキル</Heading>
-          <Heading as="h2" size={"sm"}>
-            攻撃
-          </Heading>
-          <Slider defaultValue={0} min={0} max={7} step={1}>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Heading as="h2" size={"sm"}>
-            見切り
-          </Heading>
-          <Slider defaultValue={0} min={0} max={7} step={1}>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Heading as="h2" size={"sm"}>
-            超会心
-          </Heading>
-          <Slider defaultValue={0} min={0} max={3} step={1}>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Heading as="h2" size={"sm"}>
-            弱点特効
-          </Heading>
-          <Slider defaultValue={0} min={0} max={3} step={1}>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+          {skills.map((skill, idx) => (
+            <>
+              <Heading as="h2" size={"sm"}>
+                {skill.label}
+              </Heading>{" "}
+              <Slider
+                defaultValue={0}
+                min={0}
+                max={skill.effects.length - 1}
+                step={1}
+                onChange={(level) => onChangeSkills(level, idx)}
+              >
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb
+                  fontSize="sm"
+                  boxSize="32px"
+                  children={skill.level}
+                />
+              </Slider>
+            </>
+          ))}
         </Stack>
 
         <Text
@@ -144,7 +146,8 @@ const Index = () => {
           opacity={1}
           backgroundColor="white"
         >
-          攻撃力期待値：{weapon ? calcMeanAttack(weapon, items).toFixed(2) : 0}
+          攻撃力期待値：
+          {weapon ? calcMeanAttack(weapon, items, skills).toFixed(2) : 0}
         </Text>
       </Main>
 
