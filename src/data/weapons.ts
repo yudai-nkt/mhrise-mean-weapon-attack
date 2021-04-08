@@ -1,71 +1,72 @@
 export type WeaponType = { name: string; label: string };
 
-export const weaponTypes: WeaponType[] = [
+export const weaponTypes = [
   {
-    name: "great-sword",
+    name: "great-sword" as const,
     label: "大剣",
-  } as const,
+  },
   {
-    name: "long-sword",
+    name: "long-sword" as const,
     label: "太刀",
-  } as const,
+  },
   {
-    name: "sword-and-shield",
+    name: "sword-and-shield" as const,
     label: "片手剣",
-  } as const,
+  },
   {
-    name: "dual-blades",
+    name: "dual-blades" as const,
     label: "双剣",
-  } as const,
+  },
   {
-    name: "hammer",
+    name: "hammer" as const,
     label: "ハンマー",
-  } as const,
+  },
   {
-    name: "hunting-horn",
+    name: "hunting-horn" as const,
     label: "狩猟笛",
-  } as const,
+  },
   {
-    name: "lance",
+    name: "lance" as const,
     label: "ランス",
-  } as const,
+  },
   {
-    name: "gunlance",
+    name: "gunlance" as const,
     label: "ガンランス",
-  } as const,
+  },
   {
-    name: "switch-axe",
+    name: "switch-axe" as const,
     label: "スラッシュアックス",
-  } as const,
+  },
   {
-    name: "charge-blade",
+    name: "charge-blade" as const,
     label: "チャージアックス",
-  } as const,
+  },
   {
-    name: "insect-glaive",
+    name: "insect-glaive" as const,
     label: "操虫棍",
-  } as const,
+  },
   {
-    name: "light-bowgun",
+    name: "light-bowgun" as const,
     label: "ライトボウガン",
-  } as const,
+  },
   {
-    name: "heavy-bowgun",
+    name: "heavy-bowgun" as const,
     label: "ヘヴィボウガン",
-  } as const,
+  },
   {
-    name: "bow",
+    name: "bow" as const,
     label: "弓",
-  } as const,
+  },
 ];
 
-const foo = weaponTypes.map((weaponType) => weaponType.name);
-// const bar = foo as const;
+const possibleWeaponTypeNames = weaponTypes.map(
+  (weaponType) => weaponType.name
+);
 
 export type Weapon = {
   name: string;
   syllabary: string;
-  type: typeof foo[number];
+  type: typeof possibleWeaponTypeNames[number];
   attack: number;
   affinity: number;
 };
