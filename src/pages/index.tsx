@@ -137,7 +137,7 @@ const Index = (): JSX.Element => {
                 </SliderTrack>
                 <SliderThumb
                   fontSize="sm"
-                  boxSize="32px"
+                  boxSize="28px"
                   // chilren prop is handy in this case because the level display
                   // automatically follows the position of the parent slider thumb.
                   // eslint-disable-next-line react/no-children-prop
