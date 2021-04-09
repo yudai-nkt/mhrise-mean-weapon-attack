@@ -11,6 +11,7 @@ import {
   SliderThumb,
   SliderTrack,
   Stack,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useState, useCallback, ChangeEvent } from "react";
 
@@ -23,6 +24,8 @@ import { weaponTypes, weapons, Weapon } from "../data/weapons";
 import { skills as initialSkills } from "../data/skills";
 
 const Index = (): JSX.Element => {
+  const { colorMode } = useColorMode();
+  const isDark = colorMode === "dark";
   const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
   const [weapon, setWeapon] = useState<Weapon | undefined>(undefined);
   const [items, setItems] = useState<Item[]>(initialItems);
@@ -138,7 +141,9 @@ const Index = (): JSX.Element => {
                   // chilren prop is handy in this case because the level display
                   // automatically follows the position of the parent slider thumb.
                   // eslint-disable-next-line react/no-children-prop
-                  children={skill.level}
+                  children={
+                    <span style={{ color: "black" }}>{skill.level}</span>
+                  }
                 />
               </Slider>
             </>
@@ -151,7 +156,7 @@ const Index = (): JSX.Element => {
           align="right"
           bottom={0}
           opacity={1}
-          backgroundColor="white"
+          backgroundColor={isDark ? "gray.700" : "gray.200"}
         >
           攻撃力期待値：
           {weapon ? calcMeanAttack(weapon, items, skills).toFixed(2) : 0}
