@@ -22,7 +22,7 @@ import { items as initialItems, Item } from "../data/items";
 import { weaponTypes, weapons, Weapon } from "../data/weapons";
 import { skills as initialSkills } from "../data/skills";
 
-const Index = () => {
+const Index = (): JSX.Element => {
   const [weaponType, setWeaponType] = useState<string | undefined>(undefined);
   const [weapon, setWeapon] = useState<Weapon | undefined>(undefined);
   const [items, setItems] = useState<Item[]>(initialItems);
