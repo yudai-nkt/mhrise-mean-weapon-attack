@@ -157,6 +157,7 @@ const Index = (): JSX.Element => {
           bottom={0}
           opacity={1}
           backgroundColor={isDark ? "gray.700" : "gray.200"}
+          zIndex={1}
         >
           攻撃力期待値：
           {weapon ? calcMeanAttack(weapon, items, skills).toFixed(2) : 0}
