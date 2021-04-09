@@ -1,3 +1,4 @@
+/** @type {import("@typescript-eslint/experimental-utils").TSESLint.Linter.Config} */
 module.exports = {
   env: {
     es2020: true,
