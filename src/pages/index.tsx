@@ -31,13 +31,13 @@ const Index = (): JSX.Element => {
     (event: ChangeEvent<HTMLSelectElement>) => {
       setWeaponType(event.target.value);
     },
-    [weaponType]
+    []
   );
   const onChangeWeapon = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       setWeapon(weapons.find((weapon) => weapon.name === event.target.value));
     },
-    [weapon]
+    []
   );
   const onChangeItems = useCallback(
     (event: ChangeEvent<HTMLInputElement>, index: number) => {
@@ -90,7 +90,9 @@ const Index = (): JSX.Element => {
         </UnorderedList>
         <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
           {weaponTypes.map(({ name, label }) => (
-            <option value={name}>{label}</option>
+            <option value={name} key={name}>
+              {label}
+            </option>
           ))}
         </Select>
 
@@ -99,13 +101,15 @@ const Index = (): JSX.Element => {
             .filter((weapon) => weapon.type === weaponType)
             .sort((a, b) => (a.syllabary > b.syllabary ? 1 : -1))
             .map((weapon) => (
-              <option value={weapon.name}>{weapon.name}</option>
+              <option value={weapon.name} key={weapon.name}>
+                {weapon.name}
+              </option>
             ))}
         </Select>
         <Stack>
           <Heading size={"md"}>アイテム</Heading>
           {items.map((item, idx) => (
-            <Checkbox onChange={(e) => onChangeItems(e, idx)}>
+            <Checkbox key={item.label} onChange={(e) => onChangeItems(e, idx)}>
               {item.label}
             </Checkbox>
           ))}
@@ -131,6 +135,9 @@ const Index = (): JSX.Element => {
                 <SliderThumb
                   fontSize="sm"
                   boxSize="32px"
+                  // chilren prop is handy in this case because the level display
+                  // automatically follows the position of the parent slider thumb.
+                  // eslint-disable-next-line react/no-children-prop
                   children={skill.level}
                 />
               </Slider>
