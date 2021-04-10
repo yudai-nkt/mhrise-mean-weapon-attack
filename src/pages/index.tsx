@@ -176,7 +176,9 @@ const Index = (): JSX.Element => {
           fontSize={"xx-large"}
           position="sticky"
           align="right"
-          bottom={0}
+          bottom={3}
+          borderRadius={8}
+          paddingRight={3}
           opacity={1}
           backgroundColor={isDark ? "gray.700" : "gray.200"}
           zIndex={1}
