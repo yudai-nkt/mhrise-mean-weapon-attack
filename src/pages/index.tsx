@@ -116,8 +116,25 @@ const Index = (): JSX.Element => {
         </Select>
         <Stack>
           <Heading size={"md"}>アイテム</Heading>
+          <Checkbox
+            key="check-all-items"
+            onChange={(e) =>
+              setItems(
+                items.map((item) => {
+                  item.inUse = e.target.checked;
+                  return item;
+                })
+              )
+            }
+          >
+            {"すべて選択"}
+          </Checkbox>
           {items.map((item, idx) => (
-            <Checkbox key={item.label} onChange={(e) => onChangeItems(e, idx)}>
+            <Checkbox
+              key={item.label}
+              isChecked={item.inUse}
+              onChange={(e) => onChangeItems(e, idx)}
+            >
               {item.label}
             </Checkbox>
           ))}
