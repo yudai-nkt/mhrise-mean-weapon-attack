@@ -18,20 +18,20 @@ export const weaponTypes = [
     label: "双剣",
   },
   {
-    name: "hammer" as const,
-    label: "ハンマー",
-  },
-  {
-    name: "hunting-horn" as const,
-    label: "狩猟笛",
-  },
-  {
     name: "lance" as const,
     label: "ランス",
   },
   {
     name: "gunlance" as const,
     label: "ガンランス",
+  },
+  {
+    name: "hammer" as const,
+    label: "ハンマー",
+  },
+  {
+    name: "hunting-horn" as const,
+    label: "狩猟笛",
   },
   {
     name: "switch-axe" as const,
