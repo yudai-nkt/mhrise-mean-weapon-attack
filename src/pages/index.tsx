@@ -1,10 +1,16 @@
 import {
   Text,
   Checkbox,
+  Flex,
   Heading,
   UnorderedList,
   ListItem,
   Link,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
   Select,
   Slider,
   SliderFilledTrack,
@@ -147,27 +153,38 @@ const Index = (): JSX.Element => {
               <Heading as="h2" size={"sm"}>
                 {skill.label}
               </Heading>{" "}
-              <Slider
-                defaultValue={0}
-                min={0}
-                max={skill.effects.length - 1}
-                step={1}
-                onChange={(level) => onChangeSkills(level, idx)}
-              >
-                <SliderTrack>
-                  <SliderFilledTrack />
-                </SliderTrack>
-                <SliderThumb
-                  fontSize="sm"
-                  boxSize="28px"
-                  // chilren prop is handy in this case because the level display
-                  // automatically follows the position of the parent slider thumb.
-                  // eslint-disable-next-line react/no-children-prop
-                  children={
-                    <span style={{ color: "black" }}>{skill.level}</span>
-                  }
-                />
-              </Slider>
+              <Flex>
+                {" "}
+                <Slider
+                  defaultValue={0}
+                  min={0}
+                  max={skill.effects.length - 1}
+                  focusThumbOnChange={false}
+                  step={1}
+                  value={skill.level}
+                  onChange={(level) => onChangeSkills(level, idx)}
+                >
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb fontSize="sm" boxSize="24px" />
+                </Slider>
+                <NumberInput
+                  size="md"
+                  width="75px"
+                  ml="1.25rem"
+                  min={0}
+                  max={skill.effects.length - 1}
+                  value={skill.level}
+                  onChange={(_, level) => onChangeSkills(level, idx)}
+                >
+                  <NumberInputField min={0} max={skill.effects.length - 1} />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Flex>
             </>
           ))}
         </Stack>
