@@ -72,6 +72,9 @@ const Index = (): JSX.Element => {
   return (
     <Container height="100vh">
       <Main>
+        <Heading as="h1" size="lg">
+          MHRise武器火力シミュレータ
+        </Heading>
         <UnorderedList>
           <ListItem>
             武器・アイテム・スキルを選択すると会心攻撃を考慮した攻撃力の期待値が計算されます．
@@ -91,6 +94,8 @@ const Index = (): JSX.Element => {
             までご報告ください．Pull Requestも歓迎します．
           </ListItem>
         </UnorderedList>
+
+        <Heading size={"md"}>武器</Heading>
         <Select placeholder="武器種を選択" onChange={onChangeWeaponType}>
           {weaponTypes.map(({ name, label }) => (
             <option value={name} key={name}>
