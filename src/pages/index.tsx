@@ -76,7 +76,7 @@ const Index = (): JSX.Element => {
   );
 
   return (
-    <Container height="100vh">
+    <Container>
       <Main>
         <Heading as="h1" size="lg">
           MHRise武器火力シミュレータ
@@ -197,7 +197,18 @@ const Index = (): JSX.Element => {
           borderRadius={8}
           paddingRight={3}
           opacity={1}
-          backgroundColor={isDark ? "gray.700" : "gray.200"}
+          _after={{
+            content: "''",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            borderRadius: 8,
+            backgroundColor: isDark ? "gray.700" : "gray.200",
+            opacity: 0.8,
+            zIndex: -1,
+          }}
           zIndex={1}
         >
           攻撃力期待値：
