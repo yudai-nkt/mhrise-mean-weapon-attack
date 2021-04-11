@@ -124,6 +124,10 @@ const Index = (): JSX.Element => {
           <Heading size={"md"}>アイテム</Heading>
           <Checkbox
             key="check-all-items"
+            isIndeterminate={
+              items.some((item) => item.inUse) &&
+              !items.every((item) => item.inUse)
+            }
             onChange={(e) =>
               setItems(
                 items.map((item) => {
